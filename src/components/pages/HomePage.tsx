@@ -1,93 +1,18 @@
 // HPI 1.7-G
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Float, MeshDistortMaterial, Sphere, Box, TorusKnot, Environment, Lightformer, ContactShadows } from '@react-three/drei';
-import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, Code2, GraduationCap, ChevronDown, ArrowRight, Sparkles, Layers, Cpu } from 'lucide-react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, Code2, GraduationCap, ArrowRight, Sparkles, Layers, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { Experience, Projects, Skills, Achievements } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import * as THREE from 'three';
-
-// --- 3D Components ---
-
-function QuantumCore() {
-  const groupRef = useRef<THREE.Group>(null);
-  
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.5;
-      groupRef.current.rotation.x = Math.cos(state.clock.elapsedTime * 0.2) * 0.2;
-    }
-  });
-
-  return (
-    <group ref={groupRef}>
-      <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-        <Sphere args={[1.2, 64, 64]} position={[0, 0, 0]}>
-          <MeshDistortMaterial
-            color="#FF8C00"
-            attach="material"
-            distort={0.4}
-            speed={1.5}
-            roughness={0.1}
-            metalness={0.9}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-          />
-        </Sphere>
-      </Float>
-
-      {/* Orbiting Elements */}
-      <Float speed={1.5} rotationIntensity={2} floatIntensity={2}>
-        <TorusKnot args={[1.8, 0.05, 128, 16]} position={[0, 0, 0]}>
-          <meshPhysicalMaterial color="#E67E22" metalness={1} roughness={0.2} transmission={0.5} thickness={0.5} />
-        </TorusKnot>
-      </Float>
-
-      <Float speed={3} rotationIntensity={1.5} floatIntensity={2}>
-        <Box args={[0.4, 0.4, 0.4]} position={[-2.5, 1.5, -1]} rotation={[Math.PI / 4, Math.PI / 4, 0]}>
-          <meshStandardMaterial color="#FFBF00" metalness={0.8} roughness={0.2} emissive="#FFBF00" emissiveIntensity={0.2} />
-        </Box>
-      </Float>
-
-      <Float speed={2.5} rotationIntensity={2} floatIntensity={1.5}>
-        <Box args={[0.3, 0.3, 0.3]} position={[2.5, -1.5, 1]} rotation={[Math.PI / 3, Math.PI / 6, 0]}>
-          <meshStandardMaterial color="#F8F8F8" metalness={0.9} roughness={0.1} />
-        </Box>
-      </Float>
-    </group>
-  );
-}
-
-function HeroScene() {
-  return (
-    <>
-      <color attach="background" args={['transparent']} />
-      <ambientLight intensity={0.2} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-      <pointLight position={[-10, -10, -10]} color="#FF8C00" intensity={0.5} />
-      
-      <Environment preset="city">
-        <Lightformer form="rect" intensity={1} position={[10, 5, 0]} scale={[10, 50, 1]} target={[0, 0, 0]} />
-      </Environment>
-
-      <QuantumCore />
-      
-      <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4} color="#FF8C00" />
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} maxPolarAngle={Math.PI / 2 + 0.2} minPolarAngle={Math.PI / 2 - 0.2} />
-    </>
-  );
-}
 
 // --- Utility Components ---
 
-const MagneticButton = ({ children, className, onClick, variant = 'default' }: { children: React.ReactNode, className?: string, onClick?: () => void, variant?: 'default' | 'outline' }) => {
+const MagneticButton = ({ children, className, onClick, variant = 'default' }: { children: React.ReactNode; className?: string; onClick?: () => void; variant?: 'default' | 'outline' }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -125,7 +50,7 @@ const MagneticButton = ({ children, className, onClick, variant = 'default' }: {
   );
 };
 
-const SectionHeading = ({ title, subtitle, align = 'center' }: { title: string, subtitle: string, align?: 'left' | 'center' }) => (
+const SectionHeading = ({ title, subtitle, align = 'center' }: { title: string; subtitle: string; align?: 'left' | 'center' }) => (
   <div className={`mb-16 md:mb-24 ${align === 'center' ? 'text-center' : 'text-left'}`}>
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -238,15 +163,15 @@ export default function HomePage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[50vh] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 items-center min-h-[80vh]">
+          <div className="flex items-center justify-center min-h-[80vh]">
             
-            {/* Left Content */}
-            <div className="lg:col-span-7 space-y-10 relative z-20">
+            {/* Center Content */}
+            <div className="space-y-10 relative z-20 max-w-4xl">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-6"
+                className="space-y-6 text-center"
               >
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-primary/20">
                   <Sparkles className="w-4 h-4 text-primary" />
@@ -258,11 +183,11 @@ export default function HomePage() {
                   <span className="block text-gradient-primary">Reddy.</span>
                 </h1>
                 
-                <p className="text-xl lg:text-2xl text-foreground/70 font-medium max-w-2xl leading-relaxed">
+                <p className="text-xl lg:text-2xl text-foreground/70 font-medium leading-relaxed">
                   Web Developer <span className="text-primary mx-2">•</span> Founder <span className="text-primary mx-2">•</span> Creative Builder
                 </p>
                 
-                <p className="text-base lg:text-lg text-foreground/50 max-w-xl leading-relaxed">
+                <p className="text-base lg:text-lg text-foreground/50 max-w-2xl mx-auto leading-relaxed">
                   Crafting elegant digital experiences with a unique perspective. 
                   Merging technical precision with creative vision to build the future.
                 </p>
@@ -272,7 +197,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-wrap items-center gap-6"
+                className="flex flex-wrap items-center justify-center gap-6"
               >
                 <MagneticButton onClick={scrollToProjects} className="bg-primary text-primary-foreground px-8 py-6 text-lg rounded-xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
                   Explore Work <ArrowRight className="w-5 h-5 ml-2" />
@@ -287,7 +212,7 @@ export default function HomePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.6 }}
-                className="flex items-center gap-6 pt-8 border-t border-foreground/10 max-w-md"
+                className="flex items-center justify-center gap-6 pt-8 border-t border-foreground/10"
               >
                 <a href="https://github.com/sriyamini" target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors duration-300 p-2 hover:bg-primary/10 rounded-full">
                   <Github className="w-6 h-6" />
@@ -300,21 +225,6 @@ export default function HomePage() {
                 </a>
               </motion.div>
             </div>
-            
-            {/* Right 3D Canvas */}
-            <div className="lg:col-span-5 h-[60vh] lg:h-[80vh] relative w-full">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                className="absolute inset-0"
-              >
-                <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 2]}>
-                  <HeroScene />
-                </Canvas>
-              </motion.div>
-            </div>
-            
           </div>
         </div>
         
@@ -322,7 +232,7 @@ export default function HomePage() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
+          transition={{ delay: 0.8, duration: 1 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
         >
           <span className="text-xs uppercase tracking-widest text-foreground/40 font-medium">Scroll</span>
