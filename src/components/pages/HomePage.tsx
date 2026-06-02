@@ -9,6 +9,105 @@ import { BaseCrudService } from '@/integrations';
 import { Experience, Projects, Skills, Achievements } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import * as THREE from 'three';
+
+// --- 3D Canvas Component ---
+
+const ThreeDPortfolio = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cubesRef = useRef<THREE.Mesh[]>([]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Scene setup
+    const scene = new THREE.Scene();
+    sceneRef.current = scene;
+    scene.background = new THREE.Color(0x1a1a1a);
+
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      containerRef.current.clientWidth / containerRef.current.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    rendererRef.current = renderer;
+    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    containerRef.current.appendChild(renderer.domElement);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xFF8C00, 1);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    // Create rotating cubes
+    const cubes: THREE.Mesh[] = [];
+    const positions = [
+      { x: -2, y: 0, z: 0 },
+      { x: 0, y: 0, z: 0 },
+      { x: 2, y: 0, z: 0 }
+    ];
+
+    positions.forEach((pos, idx) => {
+      const geometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+      const material = new THREE.MeshPhongMaterial({
+        color: idx === 1 ? 0xFF8C00 : 0x333333,
+        emissive: idx === 1 ? 0xFF8C00 : 0x000000,
+        shininess: 100
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.set(pos.x, pos.y, pos.z);
+      cube.userData.rotationSpeed = 0.01 + Math.random() * 0.01;
+      scene.add(cube);
+      cubes.push(cube);
+    });
+    cubesRef.current = cubes;
+
+    // Animation loop
+    let animationId: number;
+    const animate = () => {
+      animationId = requestAnimationFrame(animate);
+
+      cubes.forEach((cube) => {
+        cube.rotation.x += cube.userData.rotationSpeed;
+        cube.rotation.y += cube.userData.rotationSpeed;
+      });
+
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    // Handle resize
+    const handleResize = () => {
+      if (!containerRef.current) return;
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationId);
+      containerRef.current?.removeChild(renderer.domElement);
+      renderer.dispose();
+    };
+  }, []);
+
+  return <div ref={containerRef} className="w-full h-full" />;
+};
 
 // --- Utility Components ---
 
@@ -304,12 +403,23 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* --- 3D PORTFOLIO SECTION --- */}
+      <section id="3d-portfolio" className="py-32 bg-deep-charcoal relative border-t border-white/5">
+        <div className="container mx-auto px-6 lg:px-12 max-w-[120rem]">
+          <SectionHeading title="3D Portfolio" subtitle="Interactive visualization of my creative workspace." />
+          
+          <div className="relative h-[500px] rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl shadow-black/50">
+            <ThreeDPortfolio />
+          </div>
+        </div>
+      </section>
+
       {/* --- SKILLS SECTION (2.5D Floating Grid) --- */}
       <section id="skills" className="py-32 bg-background relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none" />
         
         <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
-          <SectionHeading title="Technical Arsenal" subtitle="A curated stack of technologies I use to bring ideas to life." />
+          <SectionHeading title="Skills" subtitle="A curated stack of technologies I use to bring ideas to life." />
 
           <div className="min-h-[400px]">
             {isLoading ? (
