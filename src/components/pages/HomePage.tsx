@@ -1,4 +1,3 @@
-// HPI 1.7-G
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, Code2, GraduationCap, ArrowRight, Sparkles, Layers, Cpu } from 'lucide-react';
