@@ -22,31 +22,20 @@ const timelineData: TimelineEntry[] = [
     category: 'education'
   },
   {
-    year: '2025 – Future',
-    title: 'Founder & CEO',
-    organization: 'ManaSetu',
-    description: 'Leading an early-stage startup initiative. Driving product vision, strategy, execution, and innovation. Building solutions with a focus on impact, creativity, and long-term scalability.',
-    icon: <Lightbulb className="w-6 h-6" />,
-    highlights: ['Product Vision', 'Strategy & Execution', 'Innovation Focus'],
-    category: 'founder'
+    year: '2023 – Present',
+    title: 'Project Builder',
+    description: 'Created projects including ManaSetu, MoodFixer, SkillVerse, Resume Builder, and WellNest. Built projects combining creativity, functionality, and user-focused problem solving.',
+    icon: <Star className="w-6 h-6" />,
+    highlights: ['ManaSetu', 'MoodFixer', 'SkillVerse', 'Resume Builder', 'WellNest'],
+    category: 'builder'
   },
   {
-    year: '2025 – 2026',
-    title: 'Promotions Lead',
-    organization: 'GDG On Campus SVCE',
-    description: 'Led technical event promotions and student engagement initiatives. Contributed to growing community participation and awareness around developer programs and innovation culture.',
-    icon: <Zap className="w-6 h-6" />,
-    highlights: ['Event Promotions', 'Community Growth', 'Student Engagement'],
+    year: '2024 – Present',
+    title: 'Ladies Representative',
+    description: 'Strengthened communication, leadership, event coordination, and team collaboration skills. Building inclusive communities and fostering meaningful connections.',
+    icon: <Users className="w-6 h-6" />,
+    highlights: ['Leadership', 'Event Coordination', 'Team Collaboration'],
     category: 'leadership'
-  },
-  {
-    year: '2025',
-    title: 'Research Team Member',
-    organization: 'Webotex',
-    description: 'Worked on research-driven technical initiatives. Contributed to structured development, usability thinking, and solution-oriented implementation.',
-    icon: <Award className="w-6 h-6" />,
-    highlights: ['Research Development', 'Usability Focus', 'Technical Innovation'],
-    category: 'research'
   },
   {
     year: '2024 – 2025',
@@ -58,20 +47,31 @@ const timelineData: TimelineEntry[] = [
     category: 'development'
   },
   {
-    year: '2024 – Present',
-    title: 'Ladies Representative',
-    description: 'Strengthened communication, leadership, event coordination, and team collaboration skills. Building inclusive communities and fostering meaningful connections.',
-    icon: <Users className="w-6 h-6" />,
-    highlights: ['Leadership', 'Event Coordination', 'Team Collaboration'],
+    year: '2025',
+    title: 'Research Team Member',
+    organization: 'Webotex',
+    description: 'Worked on research-driven technical initiatives. Contributed to structured development, usability thinking, and solution-oriented implementation.',
+    icon: <Award className="w-6 h-6" />,
+    highlights: ['Research Development', 'Usability Focus', 'Technical Innovation'],
+    category: 'research'
+  },
+  {
+    year: '2025 – Present',
+    title: 'Promotions Lead',
+    organization: 'GDG On Campus SVCE',
+    description: 'Leading technical event promotions and student engagement initiatives. Contributing to growing community participation and awareness around developer programs and innovation culture.',
+    icon: <Zap className="w-6 h-6" />,
+    highlights: ['Event Promotions', 'Community Growth', 'Student Engagement'],
     category: 'leadership'
   },
   {
-    year: '2023 – Present',
-    title: 'Project Builder',
-    description: 'Created projects including ManaSetu, MoodFixer, SkillVerse, Resume Builder, and WellNest. Built projects combining creativity, functionality, and user-focused problem solving.',
-    icon: <Star className="w-6 h-6" />,
-    highlights: ['ManaSetu', 'MoodFixer', 'SkillVerse', 'Resume Builder', 'WellNest'],
-    category: 'builder'
+    year: '2025 – Future',
+    title: 'Founder & CEO',
+    organization: 'ManaSetu',
+    description: 'Leading an early-stage startup initiative. Driving product vision, strategy, execution, and innovation. Building solutions with a focus on impact, creativity, and long-term scalability.',
+    icon: <Lightbulb className="w-6 h-6" />,
+    highlights: ['Product Vision', 'Strategy & Execution', 'Innovation Focus'],
+    category: 'founder'
   }
 ];
 
