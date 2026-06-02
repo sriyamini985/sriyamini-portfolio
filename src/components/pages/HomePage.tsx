@@ -9,6 +9,7 @@ import { BaseCrudService } from '@/integrations';
 import { Experience, Projects, Skills, Achievements } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ProfessionalJourney from '@/components/ProfessionalJourney';
 import * as THREE from 'three';
 
 // --- 3D Canvas Component ---
@@ -491,10 +492,13 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* --- PROFESSIONAL JOURNEY SECTION --- */}
+      <ProfessionalJourney />
+
       {/* --- EXPERIENCE SECTION (Scroll Timeline) --- */}
       <section id="experience" className="py-32 bg-deep-charcoal relative">
         <div className="container mx-auto px-6 lg:px-12 max-w-[80rem]">
-          <SectionHeading title="Professional Journey" subtitle="Roles and responsibilities that shaped my expertise." />
+          <SectionHeading title="Work Experience" subtitle="Roles and responsibilities that shaped my expertise." />
 
           <div className="relative min-h-[400px]">
             {isLoading ? (
