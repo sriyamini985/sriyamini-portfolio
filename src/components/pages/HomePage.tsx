@@ -254,7 +254,7 @@ export default function HomePage() {
 
       <Header />
       
-      {/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION (Split 50/50 Layout) --- */}
       <section id="hero" className="relative min-h-screen w-full flex items-center justify-center pt-20 overflow-hidden">
         <div className="noise-bg" />
         
@@ -262,68 +262,63 @@ export default function HomePage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[50vh] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
-          <div className="flex items-center justify-center min-h-[80vh]">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
             
-            {/* Center Content */}
-            <div className="space-y-10 relative z-20 max-w-4xl">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-6 text-center"
-              >
+            {/* LEFT SIDE: Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-8 relative z-20"
+            >
+              <div className="space-y-6">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-primary/20">
                   <Sparkles className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium tracking-wide text-foreground/80 uppercase">Available for new opportunities</span>
+                  <span className="text-sm font-medium tracking-wide text-foreground/80 uppercase">Available for opportunities</span>
                 </div>
                 
-                <h1 className="font-heading text-6xl sm:text-7xl lg:text-8xl xl:text-[7rem] font-bold leading-[1.1] tracking-tight">
-                  <span className="block text-gradient">Sriyamini</span>
-                  <span className="block text-gradient-primary">Reddy.</span>
-                </h1>
+                <div>
+                  <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-4">
+                    <span className="block text-gradient">Sriyamini</span>
+                    <span className="block text-gradient-primary">Reddy</span>
+                  </h1>
+                  <p className="text-xl lg:text-2xl text-foreground/70 font-medium">
+                    Web Developer <span className="text-primary mx-2">•</span> Founder <span className="text-primary mx-2">•</span> Creative Builder
+                  </p>
+                </div>
                 
-                <p className="text-xl lg:text-2xl text-foreground/70 font-medium leading-relaxed">
-                  Web Developer <span className="text-primary mx-2">•</span> Founder <span className="text-primary mx-2">•</span> Creative Builder
+                <p className="text-base lg:text-lg text-foreground/60 leading-relaxed max-w-xl">
+                  Computer Science student passionate about building digital experiences, startup ideas, and impactful web solutions.
                 </p>
-                
-                <p className="text-base lg:text-lg text-foreground/50 max-w-2xl mx-auto leading-relaxed">
-                  Crafting elegant digital experiences with a unique perspective. 
-                  Merging technical precision with creative vision to build the future.
-                </p>
-              </motion.div>
+              </div>
               
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-wrap items-center justify-center gap-6"
+                className="flex flex-wrap gap-4 pt-4"
               >
-                <MagneticButton onClick={scrollToProjects} className="bg-primary text-primary-foreground px-8 py-6 text-lg rounded-xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
-                  Explore Work <ArrowRight className="w-5 h-5 ml-2" />
+                <MagneticButton onClick={scrollToProjects} className="bg-primary text-primary-foreground px-8 py-4 text-base rounded-xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
+                  View Projects <ArrowRight className="w-4 h-4 ml-2" />
                 </MagneticButton>
                 
-                <MagneticButton onClick={handleDownloadResume} variant="outline" className="border-foreground/20 text-foreground hover:bg-foreground/5 px-8 py-6 text-lg rounded-xl glass-panel">
-                  <Download className="w-5 h-5 mr-2" /> Resume
+                <MagneticButton onClick={handleDownloadResume} variant="outline" className="border-foreground/20 text-foreground hover:bg-foreground/5 px-8 py-4 text-base rounded-xl glass-panel">
+                  <Download className="w-4 h-4 mr-2" /> Download Resume
                 </MagneticButton>
               </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.6 }}
-                className="flex items-center justify-center gap-6 pt-8 border-t border-foreground/10"
-              >
-                <a href="https://github.com/sriyamini" target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors duration-300 p-2 hover:bg-primary/10 rounded-full">
-                  <Github className="w-6 h-6" />
-                </a>
-                <a href="https://linkedin.com/in/sriyamini-reddy" target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors duration-300 p-2 hover:bg-primary/10 rounded-full">
-                  <Linkedin className="w-6 h-6" />
-                </a>
-                <a href="mailto:sriyamini@example.com" className="text-foreground/50 hover:text-primary transition-colors duration-300 p-2 hover:bg-primary/10 rounded-full">
-                  <Mail className="w-6 h-6" />
-                </a>
-              </motion.div>
-            </div>
+            </motion.div>
+            
+            {/* RIGHT SIDE: 3D Profile Area */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="relative h-[500px] lg:h-[600px] hidden lg:block"
+            >
+              <div className="relative w-full h-full rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl shadow-black/50">
+                <ThreeDPortfolio />
+              </div>
+            </motion.div>
           </div>
         </div>
         
@@ -369,10 +364,13 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-12">
               <div className="prose prose-invert prose-lg max-w-none">
                 <p className="text-2xl leading-relaxed text-foreground/90 font-medium">
-                  I'm Sriyamini Reddy, a 3rd-year Computer Science student passionate about building elegant digital experiences that make a tangible difference.
+                  I'm Sriyamini Reddy, a Computer Science Engineering student who recently completed 3rd year.
                 </p>
                 <p className="text-xl leading-relaxed text-foreground/60">
-                  I approach problems with a unique perspective, merging technical rigor with creative thinking. My short-term goal is to excel as a Software Developer, mastering the craft of code. My long-term vision is entrepreneurship—creating innovative solutions that impact lives on a larger scale.
+                  I enjoy creating new things, exploring ideas, and approaching problems from different perspectives. My interests lie in web development, technology, creativity, and building meaningful digital experiences.
+                </p>
+                <p className="text-xl leading-relaxed text-foreground/60">
+                  My short-term goal is to become a Software Developer in a reputed company. My long-term vision is to become an entrepreneur and build impactful ventures.
                 </p>
               </div>
 
@@ -403,16 +401,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- 3D PORTFOLIO SECTION --- */}
-      <section id="3d-portfolio" className="py-32 bg-deep-charcoal relative border-t border-white/5">
-        <div className="container mx-auto px-6 lg:px-12 max-w-[120rem]">
-          <SectionHeading title="3D Portfolio" subtitle="Interactive visualization of my creative workspace." />
-          
-          <div className="relative h-[500px] rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl shadow-black/50">
-            <ThreeDPortfolio />
-          </div>
-        </div>
-      </section>
+
 
       {/* --- SKILLS SECTION (2.5D Floating Grid) --- */}
       <section id="skills" className="py-32 bg-background relative overflow-hidden">
@@ -774,15 +763,15 @@ export default function HomePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-              <MagneticButton onClick={() => window.location.href = 'mailto:sriyamini@example.com'} className="w-full sm:w-auto bg-primary text-primary-foreground px-10 py-8 text-xl rounded-2xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
+              <MagneticButton onClick={() => window.location.href = 'mailto:sriyamini659@gmail.com'} className="w-full sm:w-auto bg-primary text-primary-foreground px-10 py-8 text-xl rounded-2xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
                 <Mail className="w-6 h-6 mr-3" /> Get in Touch
               </MagneticButton>
               
               <div className="flex items-center gap-4">
-                <a href="https://github.com/sriyamini" target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all duration-300 group">
+                <a href="https://github.com/sriyamini985" target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all duration-300 group">
                   <Github className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
                 </a>
-                <a href="https://linkedin.com/in/sriyamini-reddy" target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all duration-300 group">
+                <a href="https://www.linkedin.com/in/sriyamini-reddy-128ba3298" target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all duration-300 group">
                   <Linkedin className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
                 </a>
               </div>

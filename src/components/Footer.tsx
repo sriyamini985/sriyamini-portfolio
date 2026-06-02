@@ -104,7 +104,7 @@ export default function Footer() {
               className="flex gap-4"
             >
               <a
-                href="https://github.com/sriyamini"
+                href="https://github.com/sriyamini985"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-lg bg-background/50 border border-primary/20 flex items-center justify-center text-foreground/70 hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110"
@@ -112,7 +112,7 @@ export default function Footer() {
                 <Github className="h-5 w-5" />
               </a>
               <a
-                href="https://linkedin.com/in/sriyamini-reddy"
+                href="https://www.linkedin.com/in/sriyamini-reddy-128ba3298"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-lg bg-background/50 border border-primary/20 flex items-center justify-center text-foreground/70 hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110"
@@ -120,7 +120,7 @@ export default function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="mailto:sriyamini@example.com"
+                href="mailto:sriyamini659@gmail.com"
                 className="w-12 h-12 rounded-lg bg-background/50 border border-primary/20 flex items-center justify-center text-foreground/70 hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110"
               >
                 <Mail className="h-5 w-5" />
