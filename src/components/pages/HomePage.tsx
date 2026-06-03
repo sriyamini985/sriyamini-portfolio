@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, Code2, GraduationCap, ArrowRight, Sparkles, Layers, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,104 +10,163 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProfessionalJourney from '@/components/ProfessionalJourney';
 import Interactive3DProject from '@/components/Interactive3DProject';
-import * as THREE from 'three';
 
-// --- 3D Canvas Component ---
+// --- Premium Profile Image Component ---
 
-const ThreeDPortfolio = () => {
+const PremiumProfileImage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const cubesRef = useRef<THREE.Mesh[]>([]);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useTransform(mouseY, [-300, 300], [10, -10]);
+  const rotateY = useTransform(mouseX, [-300, 300], [-10, 10]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Scene setup
-    const scene = new THREE.Scene();
-    sceneRef.current = scene;
-    scene.background = new THREE.Color(0x1a1a1a);
-
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      containerRef.current.clientWidth / containerRef.current.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.z = 5;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    rendererRef.current = renderer;
-    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    containerRef.current.appendChild(renderer.domElement);
-
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0xFF8C00, 1);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-
-    // Create rotating cubes
-    const cubes: THREE.Mesh[] = [];
-    const positions = [
-      { x: -2, y: 0, z: 0 },
-      { x: 0, y: 0, z: 0 },
-      { x: 2, y: 0, z: 0 }
-    ];
-
-    positions.forEach((pos, idx) => {
-      const geometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-      const material = new THREE.MeshPhongMaterial({
-        color: idx === 1 ? 0xFF8C00 : 0x333333,
-        emissive: idx === 1 ? 0xFF8C00 : 0x000000,
-        shininess: 100
-      });
-      const cube = new THREE.Mesh(geometry, material);
-      cube.position.set(pos.x, pos.y, pos.z);
-      cube.userData.rotationSpeed = 0.01 + Math.random() * 0.01;
-      scene.add(cube);
-      cubes.push(cube);
-    });
-    cubesRef.current = cubes;
-
-    // Animation loop
-    let animationId: number;
-    const animate = () => {
-      animationId = requestAnimationFrame(animate);
-
-      cubes.forEach((cube) => {
-        cube.rotation.x += cube.userData.rotationSpeed;
-        cube.rotation.y += cube.userData.rotationSpeed;
-      });
-
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    // Handle resize
-    const handleResize = () => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
-      const width = containerRef.current.clientWidth;
-      const height = containerRef.current.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const x = e.clientX - centerX;
+      const y = e.clientY - centerY;
+      
+      mouseX.set(x);
+      mouseY.set(y);
+      setMousePosition({ x, y });
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationId);
-      containerRef.current?.removeChild(renderer.domElement);
-      renderer.dispose();
-    };
-  }, []);
+  return (
+    <motion.div
+      ref={containerRef}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      className="relative h-[500px] lg:h-[600px] flex items-center justify-center perspective"
+      style={{ perspective: '1200px' }}
+    >
+      {/* Ambient Glow Background */}
+      <motion.div
+        animate={{
+          scale: isHovering ? 1.1 : 1,
+          opacity: isHovering ? 0.8 : 0.6,
+        }}
+        transition={{ duration: 0.4 }}
+        className="absolute inset-0 bg-gradient-radial from-burnt-orange/30 via-burnt-orange/10 to-transparent rounded-full blur-[80px] pointer-events-none"
+      />
 
-  return <div ref={containerRef} className="w-full h-full" />;
+      {/* Floating Particles */}
+      {[...Array(12)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-burnt-orange rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [0, -20, 0],
+            x: [0, Math.random() * 10 - 5, 0],
+            opacity: [0.3, 0.8, 0.3],
+          }}
+          transition={{
+            duration: 3 + Math.random() * 2,
+            repeat: Infinity,
+            delay: i * 0.2,
+          }}
+        />
+      ))}
+
+      {/* Main Image Container */}
+      <motion.div
+        ref={imageRef}
+        style={{
+          rotateX,
+          rotateY,
+          z: 100,
+        }}
+        animate={{
+          y: isHovering ? -8 : 0,
+        }}
+        transition={{ duration: 0.4, type: 'spring', stiffness: 200, damping: 20 }}
+        className="relative w-full h-full flex items-center justify-center"
+      >
+        {/* Circular Gradient Ring */}
+        <motion.div
+          animate={{
+            boxShadow: isHovering 
+              ? '0 0 60px rgba(230, 126, 34, 0.6), inset 0 0 60px rgba(230, 126, 34, 0.2)'
+              : '0 0 40px rgba(230, 126, 34, 0.3), inset 0 0 40px rgba(230, 126, 34, 0.1)',
+          }}
+          transition={{ duration: 0.4 }}
+          className="absolute inset-0 rounded-3xl border-2 border-burnt-orange/40 pointer-events-none"
+        />
+
+        {/* Depth Shadow */}
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-transparent via-transparent to-black/20 pointer-events-none" />
+
+        {/* Profile Image */}
+        <motion.div
+          animate={{
+            scale: isHovering ? 1.02 : 1,
+          }}
+          transition={{ duration: 0.3 }}
+          className="relative w-full h-full rounded-3xl overflow-hidden"
+        >
+          <Image
+            src="https://static.wixstatic.com/media/9dc27f_554a1345a1cb45c5b753360b0c753e9c~mv2.png"
+            alt="Sriyamini Reddy - Professional Developer and Founder"
+            width={600}
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Soft Glow Animation Overlay */}
+          <motion.div
+            animate={{
+              opacity: isHovering ? 0.4 : 0.2,
+            }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 bg-gradient-to-t from-burnt-orange/20 via-transparent to-transparent pointer-events-none"
+          />
+        </motion.div>
+
+        {/* Orange Highlight Accent */}
+        <motion.div
+          animate={{
+            opacity: isHovering ? 0.6 : 0.3,
+            scale: isHovering ? 1.1 : 1,
+          }}
+          transition={{ duration: 0.4 }}
+          className="absolute -top-20 -right-20 w-40 h-40 bg-burnt-orange/20 rounded-full blur-3xl pointer-events-none"
+        />
+      </motion.div>
+
+      {/* Floating Motion Indicator */}
+      <motion.div
+        animate={{
+          y: [0, 4, 0],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-foreground/40 font-medium tracking-widest uppercase pointer-events-none"
+      >
+        Move mouse to explore
+      </motion.div>
+    </motion.div>
+  );
 };
 
 // --- Utility Components ---
@@ -309,17 +368,10 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
             
-            {/* RIGHT SIDE: 3D Profile Area */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="relative h-[500px] lg:h-[600px] hidden lg:block"
-            >
-              <div className="relative w-full h-full rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl shadow-black/50">
-                <ThreeDPortfolio />
-              </div>
-            </motion.div>
+            {/* RIGHT SIDE: Premium Profile Image */}
+            <div className="hidden lg:block">
+              <PremiumProfileImage />
+            </div>
           </div>
         </div>
         
