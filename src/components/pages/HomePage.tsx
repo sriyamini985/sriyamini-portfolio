@@ -1,17 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
-import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, Code2, GraduationCap, ArrowRight, Sparkles, Layers } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Image } from '@/components/ui/image';
-import { BaseCrudService } from '@/integrations';
-import { Experience, Projects, Skills, Achievements } from '@/entities';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 import ProfessionalJourney from '@/components/ProfessionalJourney';
-import Interactive3DProject from '@/components/Interactive3DProject';
 import SkillsSection from '@/components/SkillsSection';
-import ExperienceSection from '@/components/ExperienceSection';
+import { Button } from '@/components/ui/button';
+import { Image } from '@/components/ui/image';
+import { Achievements, Experience, Projects, Skills } from '@/entities';
+import { BaseCrudService } from '@/integrations';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
+import { ArrowRight, Award, Briefcase, Code2, Download, ExternalLink, Github, GraduationCap, Layers, Linkedin, Mail, Sparkles } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+//import ExperienceSection from '@/components/ExperienceSection';
 import ProjectsSection from '@/components/ProjectsSection';
 
 // ... keep existing code (PremiumProfileImage, MagneticButton, SectionHeading components) ...
