@@ -409,13 +409,13 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-12">
               <div className="prose prose-invert prose-lg max-w-none">
                 <p className="text-2xl leading-relaxed text-foreground/90 font-medium">
-                  I'm Sriyamini Reddy, a Computer Science(AIML) Engineering student who recently completed 3rd year.
+                  I'm Sriyamini Reddy, a Computer Science(AIML) Engineering student.
                 </p>
                 <p className="text-xl leading-relaxed text-foreground/60">
                   I enjoy creating new things, exploring ideas, and approaching problems from different perspectives. My interests lie in web development, technology, creativity, and building meaningful digital experiences.
                 </p>
                 <p className="text-xl leading-relaxed text-foreground/60">
-                  My short-term goal is to become a Software Developer in a reputed company. My long-term vision is to become an entrepreneur and build impactful ventures.
+                  My short-term goal is to become a Software Developer in a reputed company. My long-term vision is to become an entrepreneur.
                 </p>
               </div>
 
