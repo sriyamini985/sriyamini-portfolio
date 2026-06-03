@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
-import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, Code2, GraduationCap, ArrowRight, Sparkles, Layers, Cpu } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, ExternalLink, Award, Briefcase, Code2, GraduationCap, ArrowRight, Sparkles, Layers } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Image } from '@/components/ui/image';
@@ -10,6 +10,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProfessionalJourney from '@/components/ProfessionalJourney';
 import Interactive3DProject from '@/components/Interactive3DProject';
+import SkillsSection from '@/components/SkillsSection';
 
 // --- Premium Profile Image Component ---
 
@@ -52,7 +53,7 @@ const PremiumProfileImage = () => {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className="relative h-[500px] lg:h-[600px] flex items-center justify-center perspective"
+      className="relative h-[350px] lg:h-[420px] flex items-center justify-center perspective"
       style={{ perspective: '1200px' }}
     >
       {/* Ambient Glow Background */}
@@ -276,13 +277,6 @@ export default function HomePage() {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const skillsByCategory = skills.reduce((acc, skill) => {
-    const category = skill.category || 'Other';
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(skill);
-    return acc;
-  }, {} as Record<string, Skills[]>);
-
   return (
     <div ref={containerRef} className="min-h-screen bg-background text-foreground font-paragraph selection:bg-primary/30 selection:text-primary-foreground overflow-clip">
       <style>{`
@@ -368,9 +362,11 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
 
-            {/* RIGHT SIDE: Premium Profile Image */}
-            <div className="hidden lg:block">
-              <PremiumProfileImage />
+            {/* RIGHT SIDE: Premium Profile Image - Reduced Size */}
+            <div className="hidden lg:flex lg:justify-center">
+              <div className="w-full max-w-md">
+                <PremiumProfileImage />
+              </div>
             </div>
           </div>
         </div>
@@ -454,84 +450,8 @@ export default function HomePage() {
         </div>
       </section>
 
-
-
-      {/* --- SKILLS SECTION (2.5D Floating Grid) --- */}
-      <section id="skills" className="py-32 bg-background relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none" />
-
-        <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
-          <SectionHeading title="Skills" subtitle="A curated stack of technologies I use to bring ideas to life." />
-
-          <div className="min-h-[400px]">
-            {isLoading ? (
-              <div className="w-full h-64 flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-              </div>
-            ) : skills.length > 0 ? (
-              <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-12">
-                {Object.entries(skillsByCategory).map(([category, categorySkills], categoryIndex) => (
-                  <motion.div
-                    key={category}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                    className="space-y-6"
-                  >
-                    <div className="flex items-center gap-3 border-b border-white/10 pb-4">
-                      <Cpu className="w-5 h-5 text-primary" />
-                      <h3 className="font-heading text-2xl font-bold text-foreground tracking-wide">
-                        {category}
-                      </h3>
-                    </div>
-
-                    <div className="flex flex-col gap-3">
-                      {categorySkills.map((skill, index) => (
-                        <motion.div
-                          key={skill._id}
-                          whileHover={{ x: 10, scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
-                          className="glass-panel p-4 rounded-xl flex items-center gap-4 cursor-default transition-all duration-300 border border-white/5 hover:border-primary/30"
-                        >
-                          {skill.icon ? (
-                            <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center p-2 shrink-0">
-                              <Image
-                                src={skill.icon}
-                                alt={skill.skillName || 'Skill icon'}
-                                width={24}
-                                className="w-full h-full object-contain"
-                              />
-                            </div>
-                          ) : (
-                            <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
-                              <Code2 className="w-5 h-5 text-foreground/40" />
-                            </div>
-                          )}
-
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-bold text-foreground truncate">
-                              {skill.skillName}
-                            </h4>
-                            {skill.proficiencyLevel && (
-                              <p className="text-xs text-foreground/50 uppercase tracking-wider mt-1">{skill.proficiencyLevel}</p>
-                            )}
-                          </div>
-
-                          {skill.isCoreSkill && (
-                            <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(255,140,0,0.8)] shrink-0" />
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12 text-foreground/50">No skills data available</div>
-            )}
-          </div>
-        </div>
-      </section>
+      {/* --- SKILLS SECTION (Premium Bento Grid) --- */}
+      <SkillsSection />
 
       {/* --- PROFESSIONAL JOURNEY SECTION --- */}
       <ProfessionalJourney />
