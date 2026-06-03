@@ -1,6 +1,8 @@
+import ExperienceSection from '@/components/ExperienceSection';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ProfessionalJourney from '@/components/ProfessionalJourney';
+import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
@@ -9,8 +11,6 @@ import { BaseCrudService } from '@/integrations';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Award, Briefcase, Code2, Download, ExternalLink, Github, GraduationCap, Layers, Linkedin, Mail, Sparkles } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
-//import ExperienceSection from '@/components/ExperienceSection';
-import ProjectsSection from '@/components/ProjectsSection';
 
 // ... keep existing code (PremiumProfileImage, MagneticButton, SectionHeading components) ...
 
