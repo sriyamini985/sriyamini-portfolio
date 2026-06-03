@@ -9,6 +9,7 @@ import { Experience, Projects, Skills, Achievements } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProfessionalJourney from '@/components/ProfessionalJourney';
+import Interactive3DProject from '@/components/Interactive3DProject';
 import * as THREE from 'three';
 
 // --- 3D Canvas Component ---
@@ -568,10 +569,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* --- PROJECTS SECTION (Sticky Stacking Cards) --- */}
+      {/* --- PROJECTS SECTION (Interactive 3D + Details) --- */}
       <section id="projects" className="py-32 bg-background relative">
-        <div className="container mx-auto px-6 lg:px-12 max-w-[100rem]">
-          <SectionHeading title="Featured Work" subtitle="A selection of projects that showcase my technical and creative capabilities." />
+        <div className="container mx-auto px-6 lg:px-12 max-w-[120rem]">
+          <SectionHeading title="Featured Work" subtitle="Explore interactive 3D visualizations of my projects. Drag to rotate, scroll to zoom." />
 
           <div className="min-h-[600px]">
             {isLoading ? (
@@ -579,7 +580,7 @@ export default function HomePage() {
                  <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                </div>
             ) : projects.length > 0 ? (
-              <div className="flex flex-col gap-12 md:gap-24 pb-24">
+              <div className="flex flex-col gap-20 pb-24">
                 {projects.map((project, index) => (
                   <motion.div
                     key={project._id}
@@ -587,17 +588,31 @@ export default function HomePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="sticky"
-                    style={{ top: `calc(10vh + ${index * 2}rem)` }}
+                    className="relative"
                   >
-                    <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-2xl shadow-black/50 group">
-                      <div className="grid lg:grid-cols-2 h-full">
-                        
-                        {/* Project Info */}
-                        <div className="p-8 md:p-12 flex flex-col justify-center h-full bg-deep-charcoal/80">
-                          <div className="flex items-center justify-between mb-6">
+                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+                      {/* Interactive 3D Component */}
+                      <div className="min-h-[500px] lg:min-h-[600px]">
+                        <Interactive3DProject
+                          projectTitle={project.projectTitle || 'Project'}
+                          description={project.description || ''}
+                          techStack={project.techStack || ''}
+                          previewImage={project.previewImage}
+                        />
+                      </div>
+
+                      {/* Project Details Panel */}
+                      <motion.div
+                        initial={{ opacity: 0, x: 40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="flex flex-col justify-center space-y-8 lg:pl-4"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-4">
                             {project.role && (
-                              <span className="text-primary font-mono text-sm tracking-wider uppercase">{project.role}</span>
+                              <span className="text-primary font-mono text-sm tracking-wider uppercase font-bold">{project.role}</span>
                             )}
                             {project.status && (
                               <Badge variant="outline" className="border-white/20 text-foreground/70 bg-white/5">
@@ -606,59 +621,31 @@ export default function HomePage() {
                             )}
                           </div>
                           
-                          <h3 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6 group-hover:text-primary transition-colors duration-500">
+                          <h3 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
                             {project.projectTitle}
                           </h3>
                           
-                          <p className="text-lg text-foreground/70 leading-relaxed mb-8">
+                          <p className="text-lg text-foreground/70 leading-relaxed">
                             {project.description}
                           </p>
-                          
-                          {project.techStack && (
-                            <div className="flex flex-wrap gap-2 mb-10">
-                              {project.techStack.split(',').map((tech, i) => (
-                                <span key={i} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-foreground/80 font-medium">
-                                  {tech.trim()}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                          
-                          {project.projectUrl && (
-                            <div className="mt-auto pt-6 border-t border-white/10">
-                              <a 
-                                href={project.projectUrl} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-3 text-lg font-bold text-foreground hover:text-primary transition-colors group/link"
-                              >
-                                View Live Project 
-                                <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-primary/20 transition-colors">
-                                  <ArrowRight className="w-5 h-5 group-hover/link:-rotate-45 transition-transform duration-300" />
-                                </span>
-                              </a>
-                            </div>
-                          )}
                         </div>
-                        
-                        {/* Project Image */}
-                        <div className="relative h-[40vh] lg:h-auto overflow-hidden bg-black">
-                          {project.previewImage ? (
-                            <Image 
-                              src={project.previewImage} 
-                              alt={project.projectTitle || 'Project preview'} 
-                              width={1200}
-                              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-white/5">
-                              <Code2 className="w-24 h-24 text-white/10" />
-                            </div>
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-r from-deep-charcoal/80 to-transparent lg:hidden" />
-                        </div>
-                        
-                      </div>
+
+                        {project.projectUrl && (
+                          <div className="pt-4 border-t border-white/10">
+                            <a 
+                              href={project.projectUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-3 text-lg font-bold text-foreground hover:text-primary transition-colors group/link"
+                            >
+                              View Live Project 
+                              <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-primary/20 transition-colors">
+                                <ArrowRight className="w-5 h-5 group-hover/link:-rotate-45 transition-transform duration-300" />
+                              </span>
+                            </a>
+                          </div>
+                        )}
+                      </motion.div>
                     </div>
                   </motion.div>
                 ))}
