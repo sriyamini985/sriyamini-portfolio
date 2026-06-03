@@ -27,14 +27,14 @@ const PremiumProfileImage = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
-      
+
       const rect = containerRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
+
       const x = e.clientX - centerX;
       const y = e.clientY - centerY;
-      
+
       mouseX.set(x);
       mouseY.set(y);
       setMousePosition({ x, y });
@@ -104,7 +104,7 @@ const PremiumProfileImage = () => {
         {/* Circular Gradient Ring */}
         <motion.div
           animate={{
-            boxShadow: isHovering 
+            boxShadow: isHovering
               ? '0 0 60px rgba(230, 126, 34, 0.6), inset 0 0 60px rgba(230, 126, 34, 0.2)'
               : '0 0 40px rgba(230, 126, 34, 0.3), inset 0 0 40px rgba(230, 126, 34, 0.1)',
           }}
@@ -126,10 +126,10 @@ const PremiumProfileImage = () => {
           <Image
             src="https://static.wixstatic.com/media/9dc27f_554a1345a1cb45c5b753360b0c753e9c~mv2.png"
             alt="Sriyamini Reddy - Professional Developer and Founder"
-            width={600}
+            width={400}
             className="w-full h-full object-cover"
           />
-          
+
           {/* Soft Glow Animation Overlay */}
           <motion.div
             animate={{
@@ -239,7 +239,7 @@ export default function HomePage() {
   const [skills, setSkills] = useState<Skills[]>([]);
   const [achievements, setAchievements] = useState<Achievements[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
@@ -253,7 +253,7 @@ export default function HomePage() {
           BaseCrudService.getAll<Skills>('skills'),
           BaseCrudService.getAll<Achievements>('achievements')
         ]);
-        
+
         setExperience(expData.items);
         setProjects(projData.items);
         setSkills(skillsData.items);
@@ -264,7 +264,7 @@ export default function HomePage() {
         setIsLoading(false);
       }
     }
-    
+
     loadData();
   }, []);
 
@@ -313,17 +313,17 @@ export default function HomePage() {
       `}</style>
 
       <Header />
-      
+
       {/* --- HERO SECTION (Split 50/50 Layout) --- */}
       <section id="hero" className="relative min-h-screen w-full flex items-center justify-center pt-20 overflow-hidden">
         <div className="noise-bg" />
-        
+
         {/* Background Gradients */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[50vh] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
-            
+
             {/* LEFT SIDE: Text Content */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
@@ -336,7 +336,7 @@ export default function HomePage() {
                   <Sparkles className="w-4 h-4 text-primary" />
                   <span className="text-sm font-medium tracking-wide text-foreground/80 uppercase">Available for opportunities</span>
                 </div>
-                
+
                 <div>
                   <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-4">
                     <span className="block text-gradient">Sriyamini</span>
@@ -346,12 +346,12 @@ export default function HomePage() {
                     Web Developer <span className="text-primary mx-2">•</span> Founder <span className="text-primary mx-2">•</span> Creative Builder
                   </p>
                 </div>
-                
+
                 <p className="text-base lg:text-lg text-foreground/60 leading-relaxed max-w-xl">
                   Computer Science student passionate about building digital experiences, startup ideas, and impactful web solutions.
                 </p>
               </div>
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -361,20 +361,20 @@ export default function HomePage() {
                 <MagneticButton onClick={scrollToProjects} className="bg-primary text-primary-foreground px-8 py-4 text-base rounded-xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
                   View Projects <ArrowRight className="w-4 h-4 ml-2" />
                 </MagneticButton>
-                
+
                 <MagneticButton onClick={handleDownloadResume} variant="outline" className="border-foreground/20 text-foreground hover:bg-foreground/5 px-8 py-4 text-base rounded-xl glass-panel">
                   <Download className="w-4 h-4 mr-2" /> Download Resume
                 </MagneticButton>
               </motion.div>
             </motion.div>
-            
+
             {/* RIGHT SIDE: Premium Profile Image */}
             <div className="hidden lg:block">
               <PremiumProfileImage />
             </div>
           </div>
         </div>
-        
+
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -395,11 +395,11 @@ export default function HomePage() {
       <section id="about" className="py-32 bg-deep-charcoal relative border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12 max-w-[120rem]">
           <div className="grid lg:grid-cols-12 gap-16 items-start">
-            
+
             {/* Sticky Left */}
             <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-8">
               <SectionHeading title="About Me" subtitle="A creative builder with a different perspective." align="left" />
-              
+
               <div className="glass-panel p-8 rounded-2xl border-l-4 border-l-primary relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-150" />
                 <GraduationCap className="w-10 h-10 text-primary mb-6" />
@@ -449,7 +449,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            
+
           </div>
         </div>
       </section>
@@ -459,7 +459,7 @@ export default function HomePage() {
       {/* --- SKILLS SECTION (2.5D Floating Grid) --- */}
       <section id="skills" className="py-32 bg-background relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
           <SectionHeading title="Skills" subtitle="A curated stack of technologies I use to bring ideas to life." />
 
@@ -485,7 +485,7 @@ export default function HomePage() {
                         {category}
                       </h3>
                     </div>
-                    
+
                     <div className="flex flex-col gap-3">
                       {categorySkills.map((skill, index) => (
                         <motion.div
@@ -495,9 +495,9 @@ export default function HomePage() {
                         >
                           {skill.icon ? (
                             <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center p-2 shrink-0">
-                              <Image 
-                                src={skill.icon} 
-                                alt={skill.skillName || 'Skill icon'} 
+                              <Image
+                                src={skill.icon}
+                                alt={skill.skillName || 'Skill icon'}
                                 width={24}
                                 className="w-full h-full object-contain"
                               />
@@ -507,7 +507,7 @@ export default function HomePage() {
                               <Code2 className="w-5 h-5 text-foreground/40" />
                             </div>
                           )}
-                          
+
                           <div className="flex-1 min-w-0">
                             <h4 className="font-bold text-foreground truncate">
                               {skill.skillName}
@@ -516,7 +516,7 @@ export default function HomePage() {
                               <p className="text-xs text-foreground/50 uppercase tracking-wider mt-1">{skill.proficiencyLevel}</p>
                             )}
                           </div>
-                          
+
                           {skill.isCoreSkill && (
                             <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(255,140,0,0.8)] shrink-0" />
                           )}
@@ -550,7 +550,7 @@ export default function HomePage() {
               <div className="relative">
                 {/* Central Line */}
                 <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 transform md:-translate-x-1/2" />
-                
+
                 <div className="space-y-16 md:space-y-24">
                   {experience.map((exp, index) => {
                     const isEven = index % 2 === 0;
@@ -565,16 +565,16 @@ export default function HomePage() {
                       >
                         {/* Timeline Node */}
                         <div className="absolute left-[-5px] md:left-1/2 top-8 md:top-1/2 w-3 h-3 rounded-full bg-primary transform md:-translate-x-1/2 md:-translate-y-1/2 shadow-[0_0_15px_rgba(255,140,0,0.8)] z-10" />
-                        
+
                         {/* Content */}
                         <div className={`w-full md:w-1/2 pl-8 md:pl-0 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
                           <div className="glass-panel p-8 rounded-2xl border border-white/5 hover:border-primary/30 transition-colors group">
                             <div className={`flex items-center gap-4 mb-4 ${isEven ? 'md:flex-row-reverse' : ''}`}>
                               {exp.companyLogo && (
                                 <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center shrink-0 p-2">
-                                  <Image 
-                                    src={exp.companyLogo} 
-                                    alt={exp.companyName || 'Company logo'} 
+                                  <Image
+                                    src={exp.companyLogo}
+                                    alt={exp.companyName || 'Company logo'}
                                     width={48}
                                     className="w-full h-full object-contain"
                                   />
@@ -587,20 +587,20 @@ export default function HomePage() {
                                 <p className="text-primary font-medium">{exp.companyName}</p>
                               </div>
                             </div>
-                            
+
                             <div className={`flex flex-wrap items-center gap-3 text-sm text-foreground/50 mb-4 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
                               <span className="px-3 py-1 rounded-full bg-white/5">{exp.timeline}</span>
                               {exp.location && <span>• {exp.location}</span>}
                             </div>
-                            
+
                             <p className="text-foreground/70 leading-relaxed mb-6">
                               {exp.description}
                             </p>
-                            
+
                             {exp.companyWebsite && (
-                              <a 
-                                href={exp.companyWebsite} 
-                                target="_blank" 
+                              <a
+                                href={exp.companyWebsite}
+                                target="_blank"
                                 rel="noopener noreferrer"
                                 className={`inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-primary transition-colors ${isEven ? 'md:justify-end w-full' : ''}`}
                               >
@@ -672,11 +672,11 @@ export default function HomePage() {
                               </Badge>
                             )}
                           </div>
-                          
+
                           <h3 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
                             {project.projectTitle}
                           </h3>
-                          
+
                           <p className="text-lg text-foreground/70 leading-relaxed">
                             {project.description}
                           </p>
@@ -684,13 +684,13 @@ export default function HomePage() {
 
                         {project.projectUrl && (
                           <div className="pt-4 border-t border-white/10">
-                            <a 
-                              href={project.projectUrl} 
-                              target="_blank" 
+                            <a
+                              href={project.projectUrl}
+                              target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-3 text-lg font-bold text-foreground hover:text-primary transition-colors group/link"
                             >
-                              View Live Project 
+                              View Live Project
                               <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-primary/20 transition-colors">
                                 <ArrowRight className="w-5 h-5 group-hover/link:-rotate-45 transition-transform duration-300" />
                               </span>
@@ -731,7 +731,7 @@ export default function HomePage() {
                     className="group perspective-[2000px]"
                   >
                     <div className="relative h-full glass-panel rounded-2xl border border-white/10 p-6 transition-all duration-500 transform-style-3d group-hover:rotate-x-[-5deg] group-hover:rotate-y-[5deg] group-hover:border-primary/30 group-hover:shadow-2xl group-hover:shadow-primary/10">
-                      
+
                       <div className="flex items-start justify-between mb-6">
                         <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                           <Award className="w-6 h-6" />
@@ -742,24 +742,24 @@ export default function HomePage() {
                           </span>
                         )}
                       </div>
-                      
+
                       <h3 className="font-heading text-2xl font-bold text-foreground mb-2 leading-tight">
                         {achievement.title}
                       </h3>
-                      
+
                       {achievement.issuer && (
                         <p className="text-primary font-medium mb-4">{achievement.issuer}</p>
                       )}
-                      
+
                       <p className="text-foreground/60 text-sm leading-relaxed mb-6 line-clamp-3">
                         {achievement.description}
                       </p>
-                      
+
                       {achievement.verificationUrl && (
                         <div className="mt-auto pt-4 border-t border-white/5">
-                          <a 
-                            href={achievement.verificationUrl} 
-                            target="_blank" 
+                          <a
+                            href={achievement.verificationUrl}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-primary transition-colors"
                           >
@@ -767,7 +767,7 @@ export default function HomePage() {
                           </a>
                         </div>
                       )}
-                      
+
                       {/* Subtle glow effect on hover */}
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 via-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                     </div>
@@ -784,7 +784,7 @@ export default function HomePage() {
       {/* --- CONTACT SECTION (Massive Footer Style) --- */}
       <section id="contact" className="py-32 lg:py-48 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 lg:px-12 max-w-[100rem] relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -796,16 +796,16 @@ export default function HomePage() {
             <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight">
               Let's build something <span className="text-primary italic">extraordinary.</span>
             </h2>
-            
+
             <p className="text-xl md:text-2xl text-foreground/60 font-medium">
               Open to new opportunities, collaborations, and interesting conversations.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
               <MagneticButton onClick={() => window.location.href = 'mailto:sriyamini659@gmail.com'} className="w-full sm:w-auto bg-primary text-primary-foreground px-10 py-8 text-xl rounded-2xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
                 <Mail className="w-6 h-6 mr-3" /> Get in Touch
               </MagneticButton>
-              
+
               <div className="flex items-center gap-4">
                 <a href="https://github.com/sriyamini985" target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all duration-300 group">
                   <Github className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
