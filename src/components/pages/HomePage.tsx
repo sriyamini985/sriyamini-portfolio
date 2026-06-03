@@ -409,7 +409,7 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-12">
               <div className="prose prose-invert prose-lg max-w-none">
                 <p className="text-2xl leading-relaxed text-foreground/90 font-medium">
-                  I'm Sriyamini Reddy, a Computer Science Engineering student who recently completed 3rd year.
+                  I'm Sriyamini Reddy, a Computer Science(AIML) Engineering student who recently completed 3rd year.
                 </p>
                 <p className="text-xl leading-relaxed text-foreground/60">
                   I enjoy creating new things, exploring ideas, and approaching problems from different perspectives. My interests lie in web development, technology, creativity, and building meaningful digital experiences.
