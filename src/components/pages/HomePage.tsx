@@ -11,8 +11,10 @@ import Footer from '@/components/Footer';
 import ProfessionalJourney from '@/components/ProfessionalJourney';
 import Interactive3DProject from '@/components/Interactive3DProject';
 import SkillsSection from '@/components/SkillsSection';
+import ExperienceSection from '@/components/ExperienceSection';
+import ProjectsSection from '@/components/ProjectsSection';
 
-// --- Premium Profile Image Component ---
+// ... keep existing code (PremiumProfileImage, MagneticButton, SectionHeading components) ...
 
 const PremiumProfileImage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -170,8 +172,6 @@ const PremiumProfileImage = () => {
   );
 };
 
-// --- Utility Components ---
-
 const MagneticButton = ({ children, className, onClick, variant = 'default' }: { children: React.ReactNode; className?: string; onClick?: () => void; variant?: 'default' | 'outline' }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -232,8 +232,6 @@ const SectionHeading = ({ title, subtitle, align = 'center' }: { title: string; 
   </div>
 );
 
-// --- Main Page Component ---
-
 export default function HomePage() {
   const [experience, setExperience] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<Projects[]>([]);
@@ -274,7 +272,7 @@ export default function HomePage() {
   };
 
   const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('projects-redesigned')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -456,178 +454,11 @@ export default function HomePage() {
       {/* --- PROFESSIONAL JOURNEY SECTION --- */}
       <ProfessionalJourney />
 
-      {/* --- EXPERIENCE SECTION (Scroll Timeline) --- */}
-      <section id="experience" className="py-32 bg-deep-charcoal relative">
-        <div className="container mx-auto px-6 lg:px-12 max-w-[80rem]">
-          <SectionHeading title="Work Experience" subtitle="Roles and responsibilities that shaped my expertise." />
+      {/* --- EXPERIENCE SECTION (Redesigned) --- */}
+      <ExperienceSection />
 
-          <div className="relative min-h-[400px]">
-            {isLoading ? (
-               <div className="w-full h-64 flex items-center justify-center">
-                 <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-               </div>
-            ) : experience.length > 0 ? (
-              <div className="relative">
-                {/* Central Line */}
-                <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 transform md:-translate-x-1/2" />
-
-                <div className="space-y-16 md:space-y-24">
-                  {experience.map((exp, index) => {
-                    const isEven = index % 2 === 0;
-                    return (
-                      <motion.div
-                        key={exp._id}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.6 }}
-                        className={`relative flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}
-                      >
-                        {/* Timeline Node */}
-                        <div className="absolute left-[-5px] md:left-1/2 top-8 md:top-1/2 w-3 h-3 rounded-full bg-primary transform md:-translate-x-1/2 md:-translate-y-1/2 shadow-[0_0_15px_rgba(255,140,0,0.8)] z-10" />
-
-                        {/* Content */}
-                        <div className={`w-full md:w-1/2 pl-8 md:pl-0 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
-                          <div className="glass-panel p-8 rounded-2xl border border-white/5 hover:border-primary/30 transition-colors group">
-                            <div className={`flex items-center gap-4 mb-4 ${isEven ? 'md:flex-row-reverse' : ''}`}>
-                              {exp.companyLogo && (
-                                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center shrink-0 p-2">
-                                  <Image
-                                    src={exp.companyLogo}
-                                    alt={exp.companyName || 'Company logo'}
-                                    width={48}
-                                    className="w-full h-full object-contain"
-                                  />
-                                </div>
-                              )}
-                              <div>
-                                <h3 className="font-heading text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                                  {exp.roleTitle}
-                                </h3>
-                                <p className="text-primary font-medium">{exp.companyName}</p>
-                              </div>
-                            </div>
-
-                            <div className={`flex flex-wrap items-center gap-3 text-sm text-foreground/50 mb-4 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
-                              <span className="px-3 py-1 rounded-full bg-white/5">{exp.timeline}</span>
-                              {exp.location && <span>• {exp.location}</span>}
-                            </div>
-
-                            <p className="text-foreground/70 leading-relaxed mb-6">
-                              {exp.description}
-                            </p>
-
-                            {exp.companyWebsite && (
-                              <a
-                                href={exp.companyWebsite}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-primary transition-colors ${isEven ? 'md:justify-end w-full' : ''}`}
-                              >
-                                Visit Website <ExternalLink className="w-4 h-4" />
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <div className="text-center py-12 text-foreground/50">No experience data available</div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* --- PROJECTS SECTION (Interactive 3D + Details) --- */}
-      <section id="projects" className="py-32 bg-background relative">
-        <div className="container mx-auto px-6 lg:px-12 max-w-[120rem]">
-          <SectionHeading title="Featured Work" subtitle="Explore interactive 3D visualizations of my projects. Drag to rotate, scroll to zoom." />
-
-          <div className="min-h-[600px]">
-            {isLoading ? (
-               <div className="w-full h-64 flex items-center justify-center">
-                 <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-               </div>
-            ) : projects.length > 0 ? (
-              <div className="flex flex-col gap-20 pb-24">
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={project._id}
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="relative"
-                  >
-                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-                      {/* Interactive 3D Component */}
-                      <div className="min-h-[500px] lg:min-h-[600px]">
-                        <Interactive3DProject
-                          projectTitle={project.projectTitle || 'Project'}
-                          description={project.description || ''}
-                          techStack={project.techStack || ''}
-                          previewImage={project.previewImage}
-                        />
-                      </div>
-
-                      {/* Project Details Panel */}
-                      <motion.div
-                        initial={{ opacity: 0, x: 40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="flex flex-col justify-center space-y-8 lg:pl-4"
-                      >
-                        <div>
-                          <div className="flex items-center justify-between mb-4">
-                            {project.role && (
-                              <span className="text-primary font-mono text-sm tracking-wider uppercase font-bold">{project.role}</span>
-                            )}
-                            {project.status && (
-                              <Badge variant="outline" className="border-white/20 text-foreground/70 bg-white/5">
-                                {project.status}
-                              </Badge>
-                            )}
-                          </div>
-
-                          <h3 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-                            {project.projectTitle}
-                          </h3>
-
-                          <p className="text-lg text-foreground/70 leading-relaxed">
-                            {project.description}
-                          </p>
-                        </div>
-
-                        {project.projectUrl && (
-                          <div className="pt-4 border-t border-white/10">
-                            <a
-                              href={project.projectUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-3 text-lg font-bold text-foreground hover:text-primary transition-colors group/link"
-                            >
-                              View Live Project
-                              <span className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover/link:bg-primary/20 transition-colors">
-                                <ArrowRight className="w-5 h-5 group-hover/link:-rotate-45 transition-transform duration-300" />
-                              </span>
-                            </a>
-                          </div>
-                        )}
-                      </motion.div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12 text-foreground/50">No projects data available</div>
-            )}
-          </div>
-        </div>
-      </section>
+      {/* --- PROJECTS SECTION (Redesigned) --- */}
+      <ProjectsSection />
 
       {/* --- ACHIEVEMENTS SECTION (3D Tilt Cards) --- */}
       <section id="achievements" className="py-32 bg-deep-charcoal relative border-t border-white/5">
