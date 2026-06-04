@@ -1,6 +1,9 @@
+import AchievementsSection from '@/components/AchievementsSection';
+import ContactSection from '@/components/ContactSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import PremiumFooter from '@/components/PremiumFooter';
 import ProfessionalJourney from '@/components/ProfessionalJourney';
 import ProjectsSection from '@/components/ProjectsSection';
 import SkillsSection from '@/components/SkillsSection';
@@ -458,117 +461,14 @@ export default function HomePage() {
       {/* --- PROJECTS SECTION (Redesigned) --- */}
       <ProjectsSection />
 
-      {/* --- ACHIEVEMENTS SECTION (3D Tilt Cards) --- */}
-      <section id="achievements" className="py-32 bg-deep-charcoal relative border-t border-white/5">
-        <div className="container mx-auto px-6 lg:px-12 max-w-[120rem]">
-          <SectionHeading title="Recognition" subtitle="Milestones, awards, and certifications." />
+      {/* --- ACHIEVEMENTS SECTION (Premium Redesigned) --- */}
+      <AchievementsSection />
 
-          <div className="min-h-[400px]">
-            {isLoading ? (
-               <div className="w-full h-64 flex items-center justify-center">
-                 <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-               </div>
-            ) : achievements.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {achievements.map((achievement, index) => (
-                  <motion.div
-                    key={achievement._id}
-                    initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="group perspective-[2000px]"
-                  >
-                    <div className="relative h-full glass-panel rounded-2xl border border-white/10 p-6 transition-all duration-500 transform-style-3d group-hover:rotate-x-[-5deg] group-hover:rotate-y-[5deg] group-hover:border-primary/30 group-hover:shadow-2xl group-hover:shadow-primary/10">
+      {/* --- CONTACT SECTION (Premium Redesigned) --- */}
+      <ContactSection />
 
-                      <div className="flex items-start justify-between mb-6">
-                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                          <Award className="w-6 h-6" />
-                        </div>
-                        {achievement.date && (
-                          <span className="text-sm font-mono text-foreground/50 bg-white/5 px-3 py-1 rounded-full">
-                            {new Date(achievement.date).getFullYear()}
-                          </span>
-                        )}
-                      </div>
-
-                      <h3 className="font-heading text-2xl font-bold text-foreground mb-2 leading-tight">
-                        {achievement.title}
-                      </h3>
-
-                      {achievement.issuer && (
-                        <p className="text-primary font-medium mb-4">{achievement.issuer}</p>
-                      )}
-
-                      <p className="text-foreground/60 text-sm leading-relaxed mb-6 line-clamp-3">
-                        {achievement.description}
-                      </p>
-
-                      {achievement.verificationUrl && (
-                        <div className="mt-auto pt-4 border-t border-white/5">
-                          <a
-                            href={achievement.verificationUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-primary transition-colors"
-                          >
-                            Verify Credential <ExternalLink className="w-4 h-4" />
-                          </a>
-                        </div>
-                      )}
-
-                      {/* Subtle glow effect on hover */}
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 via-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12 text-foreground/50">No achievements data available</div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* --- CONTACT SECTION (Massive Footer Style) --- */}
-      <section id="contact" className="py-32 lg:py-48 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none" />
-
-        <div className="container mx-auto px-6 lg:px-12 max-w-[100rem] relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto space-y-12"
-          >
-            <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight">
-              Let's build something <span className="text-primary italic">extraordinary.</span>
-            </h2>
-
-            <p className="text-xl md:text-2xl text-foreground/60 font-medium">
-              Open to new opportunities, collaborations, and interesting conversations.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-              <MagneticButton onClick={() => window.location.href = 'mailto:sriyamini659@gmail.com'} className="w-full sm:w-auto bg-primary text-primary-foreground px-10 py-8 text-xl rounded-2xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
-                <Mail className="w-6 h-6 mr-3" /> Get in Touch
-              </MagneticButton>
-
-              <div className="flex items-center gap-4">
-                <a href="https://github.com/sriyamini985" target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all duration-300 group">
-                  <Github className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
-                </a>
-                <a href="https://www.linkedin.com/in/sriyamini-reddy-128ba3298" target="_blank" rel="noopener noreferrer" className="p-6 rounded-2xl glass-panel border border-white/10 hover:border-primary/50 hover:bg-white/5 transition-all duration-300 group">
-                  <Linkedin className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <Footer />
+      {/* --- PREMIUM FOOTER --- */}
+      <PremiumFooter />
     </div>
   );
 }
