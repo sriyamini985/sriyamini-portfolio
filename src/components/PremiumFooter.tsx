@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github, Instagram, ArrowUp } from 'lucide-react';
+import { ArrowUp, Github, Instagram, Linkedin, Mail } from 'lucide-react';
 
 export default function PremiumFooter() {
   const scrollToTop = () => {
@@ -83,7 +82,7 @@ export default function PremiumFooter() {
               <div className="flex gap-4">
                 {[
                   { icon: Mail, link: 'mailto:sriyamini659@gmail.com', label: 'Email' },
-                  { icon: Linkedin, link: 'https://linkedin.com/in/sriyamini-reddy', label: 'LinkedIn' },
+                  { icon: Linkedin, link: 'www.linkedin.com/in/sriyamini-reddy985098', label: 'LinkedIn' },
                   { icon: Github, link: 'https://github.com/sriyamini985', label: 'GitHub' },
                   { icon: Instagram, link: 'https://instagram.com/_its__yamz', label: 'Instagram' },
                 ].map((social) => (
