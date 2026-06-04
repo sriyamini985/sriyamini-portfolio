@@ -3,3 +3,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Fix for WixVibe banner close button - increase hit target area */
+[class*="wix-vibe"],
+[class*="wix-banner"],
+[class*="built-on"],
+.wix-vibe-banner {
+  z-index: 40 !important;
+}
+
+/* Enlarge close button for better accessibility */
+[class*="wix-vibe"] button,
+[class*="wix-banner"] button,
+.wix-vibe-banner button {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  padding: 8px !important;
+}
+
+/* Ensure close button is easily clickable */
+[class*="close"],
+[aria-label*="close"],
+[aria-label*="Close"] {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
