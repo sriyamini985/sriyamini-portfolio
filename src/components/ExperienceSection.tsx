@@ -69,6 +69,89 @@ const ExperienceSection = () => {
       {/* Background Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[60vh] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
+      <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-20 text-center"
+        >
+          <h2 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight mb-6">
+            Professional <span className="text-primary">Experience</span>
+          </h2>
+          <p className="text-lg md:text-xl text-foreground/60 font-paragraph max-w-3xl mx-auto">
+            Diverse roles and responsibilities that shaped my journey as a developer and leader.
+          </p>
+        </motion.div>
+
+        {/* Experience Timeline */}
+        <div className="space-y-8">
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={exp.id}
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="group relative"
+            >
+              <div className="flex gap-8 md:gap-12">
+                {/* Left: Icon and Timeline */}
+                <div className="flex flex-col items-center gap-4 md:gap-6">
+                  <motion.div
+                    whileHover={{ scale: 1.2 }}
+                    className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-burnt-orange/10 border border-primary/30 flex items-center justify-center text-primary shrink-0"
+                  >
+                    {exp.icon}
+                  </motion.div>
+                  {index !== experiences.length - 1 && (
+                    <div className="w-1 h-20 md:h-32 bg-gradient-to-b from-primary/50 to-transparent" />
+                  )}
+                </div>
+
+                {/* Right: Content */}
+                <div className="pb-8 md:pb-12 flex-1">
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    className="p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 group-hover:border-primary/30 transition-all duration-300"
+                  >
+                    <div className="space-y-4">
+                      <div>
+                        <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary text-sm font-bold mb-3">
+                          {exp.period}
+                        </span>
+                        <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-1">
+                          {exp.title}
+                        </h3>
+                        <p className="text-lg text-primary font-semibold">{exp.company}</p>
+                      </div>
+
+                      <p className="text-foreground/80 leading-relaxed">
+                        {exp.description.join(' ')}
+                      </p>
+
+                      {exp.highlights.length > 0 && (
+                        <div className="flex flex-wrap gap-2 pt-4">
+                          {exp.highlights.map((highlight, i) => (
+                            <span
+                              key={i}
+                              className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-foreground/70"
+                            >
+                              {highlight}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };

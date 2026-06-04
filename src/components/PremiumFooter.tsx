@@ -82,7 +82,7 @@ export default function PremiumFooter() {
               <div className="flex gap-4">
                 {[
                   { icon: Mail, link: 'mailto:sriyamini659@gmail.com', label: 'Email' },
-                  { icon: Linkedin, link: 'www.linkedin.com/in/sriyamini-reddy985098', label: 'LinkedIn' },
+                  { icon: Linkedin, link: 'https://www.linkedin.com/in/sriyamini-reddy985098', label: 'LinkedIn' },
                   { icon: Github, link: 'https://github.com/sriyamini985', label: 'GitHub' },
                   { icon: Instagram, link: 'https://instagram.com/_its__yamz', label: 'Instagram' },
                 ].map((social) => (
