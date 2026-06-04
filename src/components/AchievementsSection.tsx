@@ -218,7 +218,7 @@ export default function AchievementsSection() {
   };
 
   return (
-    <section className="w-full bg-deep-charcoal py-20 px-4 md:px-8 lg:px-12">
+    <section id="achievements" className="w-full bg-deep-charcoal py-20 px-4 md:px-8 lg:px-12">
       <div className="max-w-[100rem] mx-auto">
         {/* Header */}
         <motion.div
