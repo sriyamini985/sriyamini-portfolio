@@ -233,6 +233,10 @@ const SectionHeading = ({ title, subtitle, align = 'center' }: { title: string; 
   </div>
 );
 
+const scrollToSection = (sectionId: string) => {
+  document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+};
+
 export default function HomePage() {
   const [experience, setExperience] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<Projects[]>([]);
@@ -270,10 +274,6 @@ export default function HomePage() {
 
   const handleDownloadResume = () => {
     window.open('/resume.pdf', '_blank');
-  };
-
-  const scrollToProjects = () => {
-    document.getElementById('projects-redesigned')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -335,6 +335,15 @@ export default function HomePage() {
                     <span className="block text-gradient">Sriyamini</span>
                     <span className="block text-gradient-primary">Reddy</span>
                   </h1>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border-primary/20 mb-4"
+                  >
+                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                    <span className="text-sm font-semibold text-primary">Founder of ManaSetu | Web Developer</span>
+                  </motion.div>
                   <p className="text-xl lg:text-2xl text-foreground/70 font-medium">
                     Web Developer <span className="text-primary mx-2">•</span> Founder <span className="text-primary mx-2">•</span> Creative Builder
                   </p>
@@ -351,8 +360,8 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-wrap gap-4 pt-4"
               >
-                <MagneticButton onClick={scrollToProjects} className="bg-primary text-primary-foreground px-8 py-4 text-base rounded-xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
-                  View Projects <ArrowRight className="w-4 h-4 ml-2" />
+                <MagneticButton onClick={() => scrollToSection('featured-work')} className="bg-primary text-primary-foreground px-8 py-4 text-base rounded-xl shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)]">
+                  Explore ManaSetu <ArrowRight className="w-4 h-4 ml-2" />
                 </MagneticButton>
 
                 <MagneticButton onClick={handleDownloadResume} variant="outline" className="border-foreground/20 text-foreground hover:bg-foreground/5 px-8 py-4 text-base rounded-xl glass-panel">
@@ -452,13 +461,197 @@ export default function HomePage() {
       {/* --- SKILLS SECTION (Premium Bento Grid) --- */}
       <SkillsSection />
 
+      {/* --- FEATURED STARTUP SHOWCASE: ManaSetu --- */}
+      <section id="featured-work" className="py-32 bg-background relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[60vh] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 lg:px-12 max-w-[120rem] relative z-10">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="mb-20 text-center"
+          >
+            <h2 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tight mb-6">
+              Featured <span className="text-primary">Startup</span>
+            </h2>
+            <p className="text-lg md:text-xl text-foreground/60 font-paragraph max-w-3xl mx-auto">
+              My signature work and passion project that represents my vision as a founder.
+            </p>
+          </motion.div>
+
+          {/* Featured ManaSetu Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="relative rounded-3xl overflow-hidden group"
+          >
+            {/* Background Glow */}
+            <motion.div
+              animate={{
+                opacity: [0.6, 0.8, 0.6],
+                scale: [1, 1.05, 1]
+              }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/15 to-transparent pointer-events-none"
+              style={{
+                boxShadow: 'inset 0 0 80px rgba(255, 140, 0, 0.4)'
+              }}
+            />
+
+            {/* Premium Border Glow */}
+            <div className="absolute inset-0 rounded-3xl border-2 border-primary/40 group-hover:border-primary/70 transition-colors duration-500 pointer-events-none" />
+
+            <div className="relative z-10 grid lg:grid-cols-2 gap-12 p-8 md:p-12 lg:p-16 bg-gradient-to-br from-deep-charcoal/90 to-background/90 backdrop-blur-xl">
+              {/* Left: Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="flex flex-col justify-center space-y-8"
+              >
+                {/* Logo and Founder Badge */}
+                <div className="space-y-6">
+                  <div className="w-24 h-24 rounded-2xl bg-white/10 border border-white/20 p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Image
+                      src="https://static.wixstatic.com/media/9dc27f_88e648b9c8f647448d806eb65f26d10c~mv2.png?originWidth=448&originHeight=448"
+                      alt="ManaSetu Logo"
+                      width={96}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  {/* Founder Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-primary/20 border border-primary/40"
+                  >
+                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                    <span className="text-sm font-bold text-primary">Founder & CEO</span>
+                  </motion.div>
+                </div>
+
+                {/* Title and Tagline */}
+                <div>
+                  <h3 className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-3">
+                    ManaSetu
+                  </h3>
+                  <p className="text-xl text-primary font-semibold mb-2">Community-Powered Platform</p>
+                  <p className="text-foreground/60 text-sm">2025 – Present</p>
+                </div>
+
+                {/* Description */}
+                <div className="space-y-4">
+                  <p className="text-lg text-foreground/80 leading-relaxed">
+                    ManaSetu is a community-powered platform focused on connecting people, opportunities, collaboration, and impact. Built with the vision to empower individuals and foster meaningful connections.
+                  </p>
+                  <p className="text-base text-foreground/70 leading-relaxed">
+                    The platform enables users to discover opportunities, collaborate on projects, and create lasting impact within a supportive community ecosystem.
+                  </p>
+                </div>
+
+                {/* Key Features */}
+                <div>
+                  <h4 className="font-heading text-sm uppercase tracking-widest text-primary mb-4 font-bold">
+                    Key Features
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {['Community Hub', 'Opportunity Board', 'Collaboration Tools', 'Impact Tracking'].map((feature, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                        className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm font-medium text-foreground/80 hover:border-primary/50 transition-colors"
+                      >
+                        {feature}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tech Stack */}
+                <div>
+                  <h4 className="font-heading text-sm uppercase tracking-widest text-primary mb-4 font-bold">
+                    Tech Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {['React.js', 'Node.js', 'Express.js', 'MySQL'].map((tech, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05 }}
+                        className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-foreground/80 hover:border-primary/50 transition-colors"
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CTA Button */}
+                <motion.a
+                  href="https://www.workearncommunity.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg w-fit shadow-[0_0_40px_-10px_rgba(255,140,0,0.5)] hover:shadow-[0_0_60px_-10px_rgba(255,140,0,0.7)] transition-all duration-300"
+                >
+                  Visit ManaSetu <ExternalLink className="w-5 h-5" />
+                </motion.a>
+              </motion.div>
+
+              {/* Right: Large Image */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden"
+              >
+                <motion.div
+                  animate={{
+                    scale: [1, 1.02, 1]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                  className="w-full h-full"
+                >
+                  <Image
+                    src="https://static.wixstatic.com/media/9dc27f_88e648b9c8f647448d806eb65f26d10c~mv2.png?originWidth=448&originHeight=448"
+                    alt="ManaSetu Platform"
+                    width={500}
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/40 via-transparent to-transparent pointer-events-none" />
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* --- PROFESSIONAL JOURNEY SECTION --- */}
       <ProfessionalJourney />
 
       {/* --- EXPERIENCE SECTION (Redesigned) --- */}
       <ExperienceSection />
 
-      {/* --- PROJECTS SECTION (Redesigned) --- */}
+      {/* --- OTHER PROJECTS SECTION (Redesigned) --- */}
       <ProjectsSection />
 
       {/* --- ACHIEVEMENTS SECTION (Premium Redesigned) --- */}

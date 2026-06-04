@@ -6,10 +6,24 @@ import { Button } from '@/components/ui/button';
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Detect active section
+      const sections = ['hero', 'about', 'skills', 'experience', 'featured-work', 'achievements', 'contact'];
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -21,6 +35,7 @@ export default function Header() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
+      setActiveSection(sectionId);
     }
   };
 
@@ -28,7 +43,7 @@ export default function Header() {
     { label: 'About', id: 'about' },
     { label: 'Skills', id: 'skills' },
     { label: 'Experience', id: 'experience' },
-    { label: 'Projects', id: 'projects' },
+    { label: 'Featured Work', id: 'featured-work' },
     { label: 'Achievements', id: 'achievements' },
     { label: 'Contact', id: 'contact' },
   ];
@@ -65,10 +80,16 @@ export default function Header() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="relative text-foreground/80 hover:text-primary transition-colors duration-300 font-medium group"
+                className={`relative font-medium transition-colors duration-300 group ${
+                  activeSection === item.id
+                    ? 'text-primary'
+                    : 'text-foreground/80 hover:text-primary'
+                }`}
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  activeSection === item.id ? 'w-full' : 'w-0 group-hover:w-full'
+                }`} />
               </motion.button>
             ))}
           </nav>
@@ -116,7 +137,11 @@ export default function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="block w-full text-left text-foreground/80 hover:text-primary transition-colors duration-300 font-medium py-2 px-4 rounded-lg hover:bg-primary/10"
+                  className={`block w-full text-left font-medium py-2 px-4 rounded-lg transition-colors duration-300 ${
+                    activeSection === item.id
+                      ? 'text-primary bg-primary/10'
+                      : 'text-foreground/80 hover:text-primary hover:bg-primary/10'
+                  }`}
                 >
                   {item.label}
                 </motion.button>

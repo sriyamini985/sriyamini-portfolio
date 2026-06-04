@@ -15,7 +15,7 @@ export default function Footer() {
     { label: 'About', id: 'about' },
     { label: 'Skills', id: 'skills' },
     { label: 'Experience', id: 'experience' },
-    { label: 'Projects', id: 'projects' },
+    { label: 'Featured Work', id: 'featured-work' },
     { label: 'Achievements', id: 'achievements' },
     { label: 'Contact', id: 'contact' },
   ];
